@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <display-name>gestionarticles</display-name>
+
+    <welcome-file-list>
+        <welcome-file>view/login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Authentication Filter -->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>ma.gestionarticles.presentation.AuthenticationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/articles</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/form</url-pattern>
+    </filter-mapping>
+
+    <!-- Comment out or remove these servlet definitions if using annotations -->
+    <!--
+    <servlet>
+        <servlet-name>ArticleServlet</servlet-name>
+        <servlet-class>ma.gestionarticles.presentation.ArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArticleServlet</servlet-name>
+        <url-pattern>/articles</url-pattern>
+    </servlet-mapping>
+    -->
+    <!-- Ajouter ces lignes si elles ne sont pas déjà présentes -->
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/form</url-pattern>
+    </filter-mapping>
+
+</web-app>
