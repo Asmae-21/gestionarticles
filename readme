@@ -1,0 +1,208 @@
+# Guide pour publier votre projet Java EE sur GitHub
+
+## 1. Créer un fichier .gitignore
+
+Avant de mettre votre projet sur GitHub, créez un fichier `.gitignore` à la racine de votre projet pour exclure les fichiers qui ne devraient pas être versionnés :
+
+```
+# Fichiers compilés
+target/
+build/
+out/
+*.class
+
+# Fichiers générés par IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+
+# Fichiers générés par Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# Fichiers de configuration locale
+database.properties
+application*.properties
+application*.yml
+*.properties.local
+
+# Logs
+*.log
+logs/
+
+# Fichiers du système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Fichiers Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Fichiers de serveur Tomcat
+work/
+temp/
+```
+
+## 2. Initialiser un dépôt Git local
+
+Ouvrez un terminal dans le répertoire racine de votre projet et exécutez les commandes suivantes :
+
+```bash
+# Initialiser un nouveau dépôt Git
+git init
+
+# Ajouter tous les fichiers du projet (sauf ceux exclus par .gitignore)
+git add .
+
+# Faire un commit initial
+git commit -m "Initial commit: Projet gestionarticles"
+```
+
+## 3. Créer un dépôt sur GitHub
+
+1. Connectez-vous à votre compte GitHub (ou créez-en un si vous n'en avez pas)
+2. Cliquez sur le bouton "+" en haut à droite puis sur "New repository"
+3. Remplissez les informations :
+   - Repository name: gestionarticles
+   - Description (optionnelle): Application Java EE de gestion d'articles
+   - Visibilité: Public ou Private selon votre préférence
+4. Ne cochez pas "Initialize this repository with a README"
+5. Cliquez sur "Create repository"
+
+## 4. Lier votre dépôt local au dépôt GitHub
+
+GitHub vous montrera les commandes à exécuter. En général, ce seront les suivantes :
+
+```bash
+# Ajouter le dépôt distant GitHub comme "origin"
+git remote add origin https://github.com/votre-nom-utilisateur/gestionarticles.git
+
+# Pousser votre code vers GitHub
+git push -u origin main
+```
+
+Note: Si votre branche s'appelle "master" au lieu de "main", remplacez "main" par "master" dans la commande ci-dessus.
+
+## 5. Ajouter un README.md
+
+Il est recommandé d'ajouter un fichier README.md pour décrire votre projet :
+
+```bash
+# Créer le fichier README.md
+touch README.md
+```
+
+Éditez le fichier avec le contenu suivant :
+
+```markdown
+# Gestion Articles
+
+Application Java EE pour la gestion d'articles (inventaire).
+
+## Technologies utilisées
+
+- Java EE (Jakarta EE)
+- Servlets & JSP
+- JSTL
+- MySQL
+- Bootstrap 4
+- Tomcat 10
+- Maven
+
+## Configuration requise
+
+- JDK 17
+- MySQL 8.0+
+- Apache Tomcat 10.1.x
+- Maven 3.6+
+
+## Installation
+
+1. Cloner le dépôt
+   ```
+   git clone https://github.com/votre-nom-utilisateur/gestionarticles.git
+   ```
+
+2. Configurer la base de données
+   ```sql
+   CREATE DATABASE gestion_articles;
+   USE gestion_articles;
+
+   CREATE TABLE utilisateur (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     username VARCHAR(50) UNIQUE NOT NULL,
+     password VARCHAR(50) NOT NULL
+   );
+
+   CREATE TABLE article (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     description VARCHAR(255),
+     prix DECIMAL(10,2),
+     quantite_stock INT
+   );
+
+   -- Utilisateur par défaut
+   INSERT INTO utilisateur (username, password) VALUES ('admin', 'admin');
+   ```
+
+3. Configurer `database.properties` dans `src/main/resources`
+   ```
+   db.url=jdbc:mysql://localhost:3306/gestion_articles
+   db.username=votre_utilisateur
+   db.password=votre_mot_de_passe
+   db.driver=com.mysql.cj.jdbc.Driver
+   ```
+
+4. Compiler et déployer avec Maven
+   ```
+   mvn clean package
+   ```
+
+5. Déployer le fichier WAR généré dans le dossier webapps de Tomcat
+
+## Fonctionnalités
+
+- Authentification utilisateur
+- Liste des articles
+- Ajout d'articles
+- Modification d'articles
+- Suppression d'articles
+- Recherche d'articles
+
+## Captures d'écran
+
+[Vous pouvez ajouter des captures d'écran ici]
+
+## Licence
+
+[Spécifiez votre licence ici]
+```
+
+Ajoutez ce fichier à Git et poussez-le vers GitHub :
+
+```bash
+git add README.md
+git commit -m "Ajout du fichier README"
+git push
+```
+
+## 6. Mettre à jour régulièrement votre dépôt
+
+À chaque fois que vous apportez des modifications importantes à votre projet :
+
+```bash
+# Voir les fichiers modifiés
+git status
+
+# Ajouter les fichiers modifiés
+git add .
+
+# Faire un commit avec un message descriptif
+git commit -m "Description des changements effectués"
+
+# Pousser vers GitHub
+git push
+```
